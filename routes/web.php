@@ -29,3 +29,13 @@ Route::get('/', function(){
 Route::get("{any?}", function() {
     return view("guest.home");
 })->where("any", ".*");
+
+
+Route::middleware('auth')
+   ->namespace('Admin')
+   ->name('admin.')
+   ->prefix('admin')
+   ->group(function () {
+         Route::get('/', 'HomeController@index')->name('index');
+         Route::resource('posts', 'PostController');
+   });

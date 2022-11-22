@@ -20,9 +20,12 @@
         },
         mounted() {
             axios.get('/api/posts').then(response=>{
+                console.log(response.data);
 
-                if(response.status){
-                    this.posts=response.data
+                if(response.data.success){
+                    this.posts=response.data.result
+                }else{
+                    this.errorMessage=response.data.error
                 }
 
             })

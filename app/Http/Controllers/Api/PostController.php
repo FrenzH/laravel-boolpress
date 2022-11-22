@@ -29,7 +29,7 @@ class PostController extends Controller
 
         }
 
-        return response()->json($posts);
+        return response()->json($data);
     }
 
     /**

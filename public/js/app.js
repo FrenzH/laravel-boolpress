@@ -1919,8 +1919,11 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
     axios.get('/api/posts').then(function (response) {
-      if (response.status) {
-        _this.posts = response.data;
+      console.log(response.data);
+      if (response.data.success) {
+        _this.posts = response.data.result;
+      } else {
+        _this.errorMessage = response.data.error;
       }
     });
   }

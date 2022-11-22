@@ -10,6 +10,17 @@
         <p>Nessuna categoria</p>
     @endif
 
+
+
+    <div class="tags">
+        Tags:
+        @foreach ($post->tags as $tag)
+            <span>{{ $tag->name }}</span>
+        @endforeach
+    </div>
+
+
+
     <div class="mt-5">
         <a href="{{ route('admin.posts.edit', $post->id) }}">Edit</a>
     </div>

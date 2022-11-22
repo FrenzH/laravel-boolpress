@@ -1,18 +1,22 @@
 <template>
     <div>
 
-     <ExampleComponent />
+     <PostComponent />
     </div>
   </template>
 
   <script>
-  import ExampleComponent from '../components/ExampleComponent.vue'
+  import PostComponent from '../components/PostComponent.vue';
 
 
   export default {
       name: 'App',
-      components: {ExampleComponent}
+      components: {PostComponent},
+      mounted(){
+
+       }
       }
+
   </script>
 
   <style scoped lang="scss">

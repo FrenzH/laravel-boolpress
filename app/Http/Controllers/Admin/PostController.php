@@ -54,6 +54,9 @@ class PostController extends Controller
         $slug = $this->getSlug($post->title);
         $post->slug = $slug;
         $post->save();
+        if(array_key_exists('tags', $form_data)){
+            $post->tags()->sync($form_data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post->id);
 
@@ -100,6 +103,14 @@ class PostController extends Controller
             $slug = $this->getSlug($form_data['title']);
             $form_data['slug'] = $slug;
         }
+
+        if(array_key_exists('tags', $form_data)){
+            $post->tags()->sync($form_data['tags']);
+        }else{
+            $post->tags()->sync([]);
+        }
+
+
         $post->update($form_data);
         return redirect()->route('admin.posts.show', $post->id);
     }

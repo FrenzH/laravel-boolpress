@@ -1,22 +1,34 @@
 <template>
     <div>
-
-     <PostComponent />
+     <NavComponent :nav="nav"/>
+     <router-view></router-view>
     </div>
   </template>
 
   <script>
-  import PostComponent from '../components/PostComponent.vue';
-
-
+  import NavComponent from '../components/NavComponent.vue'
   export default {
       name: 'App',
-      components: {PostComponent},
-      mounted(){
+      data(){
+          return {
+              nav: [{
+                      path: '/',
+                      label: 'Home'
+                  },
 
-       }
+                  {
+                      path: '/about',
+                      label: 'Chi Siamo'
+                  },{
+                      path: '/contacts',
+                      label: 'Contatti'
+                  }]
+          }
+      },
+      components:{
+          NavComponent
+          }
       }
-
   </script>
 
   <style scoped lang="scss">

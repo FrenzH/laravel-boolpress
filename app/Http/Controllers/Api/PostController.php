@@ -15,10 +15,10 @@ class PostController extends Controller
     public function index()
     {
         try{
-            $posts = Post::all();
+            $posts = Post::paginate(5);
             $data=[
                 'result'=>$posts,
-                'success'=>true
+                'success'=>count($posts)>0
             ];
 
         }catch(Error $e){

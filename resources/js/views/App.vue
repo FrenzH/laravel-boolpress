@@ -14,9 +14,10 @@
               nav: [{
                       path: '/',
                       label: 'Home'
-                  },
-
-                  {
+                  },{
+                      path: '/posts',
+                      label: 'Blog'
+                  },{
                       path: '/about',
                       label: 'Chi Siamo'
                   },{

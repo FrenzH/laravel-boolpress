@@ -1913,7 +1913,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       posts: [],
-      errorMessage: ''
+      errorMessage: '',
+      response: undefined
     };
   },
   mounted: function mounted() {
@@ -1922,10 +1923,39 @@ __webpack_require__.r(__webpack_exports__);
       console.log(response);
       if (response.data.success) {
         _this.posts = response.data.result.data;
+        _this.response = response.data.result;
       } else {
         _this.errorMessage = response.data.error;
       }
     });
+  },
+  methods: {
+    goNext: function goNext(url) {
+      var _this2 = this;
+      console.log(url);
+      axios.get(url).then(function (response) {
+        console.log(response);
+        if (response.data.success) {
+          _this2.posts = response.data.result.data;
+          _this2.response = response.data.result;
+        } else {
+          _this2.errorMessage = response.data.error;
+        }
+      });
+    },
+    goPrev: function goPrev(url) {
+      var _this3 = this;
+      console.log(url);
+      axios.get(url).then(function (response) {
+        console.log(response);
+        if (response.data.success) {
+          _this3.posts = response.data.result.data;
+          _this3.response = response.data.result;
+        } else {
+          _this3.errorMessage = response.data.error;
+        }
+      });
+    }
   }
 });
 
@@ -1966,11 +1996,23 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", _vm._l(_vm.posts, function (post) {
+  return _c("div", [_vm._l(_vm.posts, function (post) {
     return _c("div", {
       key: post.id
-    }, [_vm._v("\n        " + _vm._s(post.title) + "\n    ")]);
-  }), 0);
+    }, [_vm._v("\n            " + _vm._s(post.title) + "\n        ")]);
+  }), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.goNext(_vm.response.next_page_url);
+      }
+    }
+  }, [_vm._v("next")]), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.goPrev(_vm.response.prev_page_url);
+      }
+    }
+  }, [_vm._v("prev")])], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;

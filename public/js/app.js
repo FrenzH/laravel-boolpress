@@ -1996,8 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
     postToShow: Array
   },
   mounted: function mounted() {
-
-    //console.log(this.postToShow)
+    console.log(this.postToShow);
   }
 });
 

@@ -61,7 +61,23 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $posts = Post::all()->where('id',$id);
+            $data=[
+                'result'=>$posts,
+                'success'=>count($posts)>0
+            ];
+
+        }catch(Error $e){
+            $data=[
+                'error'=>$e->message,
+                'success'=>false
+            ];
+
+        }
+
+        return response()->json($data);
+
     }
 
     /**

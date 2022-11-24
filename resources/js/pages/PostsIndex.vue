@@ -4,7 +4,7 @@
 
         </div>
         <div v-else>
-        <PostListComponent :posts="pageResult" @postToShow="postDetail" />
+          <PostListComponent :posts="pageResult" @postToShow="postDetail" @requestPage="loadPage"/>
         </div>
 
     </div>
@@ -18,32 +18,41 @@ export default {
     name:'PostsIndex',
     data(){
         return{
-            pageResult:{},
+            pageResult:undefined,
             loading:true
         }
 
     },
     mounted(){
 
-        axios.get('/api/posts').then(response=>{
+      //  const page = this.$route.query.page ? this.$route.query.page : 1;
+        this.loadPage('/api/posts');
+        const page = this.$route.query.page;
+        console.log(this.page);
 
-
-                if(response.data.success){
-                    this.pageResult=response.data
-                    console.log(this.pageResult)
-                    this.loading=false
-
-
-                }else{
-                    this.errorMessage=response.data.error
-                }
-
-            })
     },
     methods:{
         postDetail(id){
 
             this.$router.push('/posts/' + id)
+        },
+        loadPage(url){
+
+            axios.get(url).then(response=>{
+                if(response.data.success){
+                    console.log(response.data.result)
+
+                    this.pageResult=response.data.result;
+                    console.log(this.pageResult)
+                    this.loading = false;
+
+
+                }else{
+
+
+            }}).catch(e =>{
+                console.log(e);
+            })
         }
     },
     components:{PostListComponent}

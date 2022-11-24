@@ -1931,12 +1931,28 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     posts: Object
   },
+  computed: {
+    currentPage: function currentPage() {
+      return this.posts.current_page;
+    }
+  },
   mounted: function mounted() {
-    console.log('xiao', this.posts);
+    console.log('list', this.posts);
   },
   methods: {
     showPost: function showPost(id) {
       this.$emit('postToShow', id);
+    },
+    go: function go(url, currentPage) {
+      console.log(url);
+      this.$router.push({
+        path: '/posts',
+        query: {
+          page: currentPage
+        }
+      });
+      this.$emit('requestPage', url);
+      console.log(this.currentPage);
     }
   }
 });
@@ -2020,7 +2036,11 @@ __webpack_require__.r(__webpack_exports__);
           _this.post = response.data.result[flag];
           // console.log(this.$route.params.id);
           console.log(response.data.result[flag]);
-        } else {
+        }
+        //  else-if () {
+
+        //  }
+        else {
           // this.errorMessage = data.error;
           //  this.$router.push({name: 'NotFound'});
         }
@@ -2049,25 +2069,32 @@ __webpack_require__.r(__webpack_exports__);
   name: 'PostsIndex',
   data: function data() {
     return {
-      pageResult: {},
+      pageResult: undefined,
       loading: true
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    axios.get('/api/posts').then(function (response) {
-      if (response.data.success) {
-        _this.pageResult = response.data;
-        console.log(_this.pageResult);
-        _this.loading = false;
-      } else {
-        _this.errorMessage = response.data.error;
-      }
-    });
+    //  const page = this.$route.query.page ? this.$route.query.page : 1;
+    this.loadPage('/api/posts');
+    var page = this.$route.query.page;
+    console.log(this.page);
   },
   methods: {
     postDetail: function postDetail(id) {
       this.$router.push('/posts/' + id);
+    },
+    loadPage: function loadPage(url) {
+      var _this = this;
+      axios.get(url).then(function (response) {
+        if (response.data.success) {
+          console.log(response.data.result);
+          _this.pageResult = response.data.result;
+          console.log(_this.pageResult);
+          _this.loading = false;
+        } else {}
+      })["catch"](function (e) {
+        console.log(e);
+      });
     }
   },
   components: {
@@ -2158,7 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", _vm._l(_vm.posts.result.data, function (post) {
+  return _c("div", [_vm._l(_vm.posts.data, function (post) {
     return _c("div", {
       key: post.id
     }, [_vm._v("\n\n      " + _vm._s(post.title) + "\n      "), _c("button", {
@@ -2168,7 +2195,19 @@ var render = function render() {
         }
       }
     }, [_vm._v("show")])]);
-  }), 0);
+  }), _vm._v(" "), _c("div", [_c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.posts.prev_page_url, _vm.currentPage - 1);
+      }
+    }
+  }, [_vm._v("prev")]), _vm._v(" "), _c("button", {
+    on: {
+      click: function click($event) {
+        return _vm.go(_vm.posts.next_page_url, _vm.currenPage + 1);
+      }
+    }
+  }, [_vm._v("next")])])], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -2283,7 +2322,8 @@ var render = function render() {
       posts: _vm.pageResult
     },
     on: {
-      postToShow: _vm.postDetail
+      postToShow: _vm.postDetail,
+      requestPage: _vm.loadPage
     }
   })], 1)]);
 };

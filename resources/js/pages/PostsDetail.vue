@@ -26,6 +26,8 @@ export default {
     },
     methods:{
         loadPage(url){
+
+
             console.log(url);
 
             axios.get(url).then(response=>{
@@ -36,7 +38,12 @@ export default {
                     this.post=response.data.result[flag];
                    // console.log(this.$route.params.id);
                     console.log(response.data.result[flag])
-                }else{
+                }
+              //  else-if () {
+
+              //  }
+
+                else{
                 // this.errorMessage = data.error;
                 //  this.$router.push({name: 'NotFound'});
                 }

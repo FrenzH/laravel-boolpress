@@ -7,8 +7,8 @@
 
     </div>
     <div>
-        <button @click="go(posts.prev_page_url,currentPage-1)">prev</button>
-        <button @click="go(posts.next_page_url,currenPage+1)">next</button>
+        <button @click="go(posts.prev_page_url, currentPage-1)">prev</button>
+        <button @click="go(posts.next_page_url, currentPage + 1)">next</button>
 
     </div>
 
@@ -30,7 +30,7 @@ export default {
         }
     },
     mounted(){
-        console.log('list',this.posts)
+        console.log('list',this.posts.next_page_url)
 
     },
     methods:{
@@ -38,10 +38,11 @@ export default {
             this.$emit('postToShow',id)
         },
         go(url,currentPage){
-            console.log(url)
+            console.log('dopp')
+            console.log(currentPage)
                 this.$router.push({ path: '/posts', query: { page: currentPage} })
                 this.$emit('requestPage', url)
-                console.log(this.currentPage)
+                console.log(url)
         }
     }
 

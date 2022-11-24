@@ -1937,14 +1937,15 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    console.log('list', this.posts);
+    console.log('list', this.posts.next_page_url);
   },
   methods: {
     showPost: function showPost(id) {
       this.$emit('postToShow', id);
     },
     go: function go(url, currentPage) {
-      console.log(url);
+      console.log('dopp');
+      console.log(currentPage);
       this.$router.push({
         path: '/posts',
         query: {
@@ -1952,7 +1953,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       this.$emit('requestPage', url);
-      console.log(this.currentPage);
+      console.log(url);
     }
   }
 });
@@ -2204,7 +2205,7 @@ var render = function render() {
   }, [_vm._v("prev")]), _vm._v(" "), _c("button", {
     on: {
       click: function click($event) {
-        return _vm.go(_vm.posts.next_page_url, _vm.currenPage + 1);
+        return _vm.go(_vm.posts.next_page_url, _vm.currentPage + 1);
       }
     }
   }, [_vm._v("next")])])], 2);

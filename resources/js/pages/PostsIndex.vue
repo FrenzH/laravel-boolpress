@@ -4,7 +4,7 @@
 
         </div>
         <div v-else>
-        <PostListComponent :posts="pageResult"/>
+        <PostListComponent :posts="pageResult" @postToShow="postDetail" />
         </div>
 
     </div>
@@ -39,6 +39,12 @@ export default {
                 }
 
             })
+    },
+    methods:{
+        postDetail(id){
+
+            this.$router.push('/posts/' + id)
+        }
     },
     components:{PostListComponent}
 

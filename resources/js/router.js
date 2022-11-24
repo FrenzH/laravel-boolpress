@@ -4,6 +4,7 @@ import About from "./pages/About";
 import Contacts from "./pages/Contacts";
 import Home from "./pages/Home";
 import PostsIndex from "./pages/PostsIndex";
+import PostsDetail from "./pages/PostsDetail";
 Vue.use(VueRouter);
 
 const router = new VueRouter({
@@ -13,6 +14,11 @@ const router = new VueRouter({
             path: "/posts",
             name: "posts-index",
             component: PostsIndex,
+        },
+        {
+               path:"/posts/:id",
+               name:"posts-detail",
+               component:PostsDetail
         },
 
         { path: "/about", name: "about", component: About },

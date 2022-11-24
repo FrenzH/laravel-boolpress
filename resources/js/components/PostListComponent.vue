@@ -1,7 +1,15 @@
 <template>
   <div>
-    <div v-for="post in posts.result.data" :key="post.id">{{post.title}}</div>
-    <div>ciaxxx</div>
+    <div v-for="post in posts.result.data" :key="post.id">
+
+        {{post.title}}
+        <button @click="showPost(post.id)">show</button>
+
+    </div>
+
+
+
+
 
   </div>
 
@@ -13,6 +21,11 @@ export default {
     props:{posts: Object },
     mounted(){
         console.log('xiao',this.posts)
+    },
+    methods:{
+        showPost(id){
+            this.$emit('postToShow',id)
+        }
     }
 
 }

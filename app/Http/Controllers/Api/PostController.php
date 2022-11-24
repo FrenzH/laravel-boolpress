@@ -62,10 +62,10 @@ class PostController extends Controller
     public function show($id)
     {
         try{
-            $posts = Post::all()->where('id',$id);
+            $posts = Post::where('id',$id)->first();
             $data=[
                 'result'=>$posts,
-                'success'=>count($posts)>0
+                'success'=>true
             ];
 
         }catch(Error $e){

@@ -2032,20 +2032,18 @@ __webpack_require__.r(__webpack_exports__);
       console.log(url);
       axios.get(url).then(function (response) {
         if (response.data.success) {
-          var k = response.data.result;
-          var flag = Object.keys(k)[0];
-          _this.post = response.data.result[flag];
+          // const k = response.data.result;
+          // let flag = Object.keys(k)[0];
+          console.log(response.data.result);
+          _this.post = response.data.result;
           // console.log(this.$route.params.id);
-          console.log(response.data.result[flag]);
+          console.log(_this.post);
+          _this.loading = true;
         }
         //  else-if () {
 
         //  }
-        else {
-          // this.errorMessage = data.error;
-          //  this.$router.push({name: 'NotFound'});
-        }
-        _this.loading = true;
+        else {}
       })["catch"](function (e) {
         console.log(e);
       });

@@ -32,22 +32,24 @@ export default {
 
             axios.get(url).then(response=>{
                 if(response.data.success){
-                    const k = response.data.result;
-                    let flag = Object.keys(k)[0];
+                   // const k = response.data.result;
+                   // let flag = Object.keys(k)[0];
+                    console.log(response.data.result)
 
-                    this.post=response.data.result[flag];
+                    this.post=response.data.result;
                    // console.log(this.$route.params.id);
-                    console.log(response.data.result[flag])
+                   console.log(this.post)
+
+                    this.loading = true;
                 }
               //  else-if () {
 
               //  }
 
                 else{
-                // this.errorMessage = data.error;
-                //  this.$router.push({name: 'NotFound'});
+
                 }
-                this.loading = true;
+
             }).catch(e =>{
                 console.log(e);
             })
